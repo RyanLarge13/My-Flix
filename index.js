@@ -1,4 +1,3 @@
-const { resolveSoa } = require('dns');
 const express = require('express'), morgan = require('morgan'), path = require('path'), bodyParser = require('body-parser'), uuid = require('uuid');
 const { ppid } = require('process');
 const app = express();
@@ -71,17 +70,10 @@ app.get('/movies/:title/genre', (req, res) => {
 });
 
 app.get('/movies/:title/directors', (req, res) => {
-    // movies.find((movie) => {
         res.send('Return the director of superman');
-    //   if (movie.title === req.params.title) {
-    //     return res.send(movie.directors);
-    //   } else {
-    //     return res.send(res.status(204), 'No directors for this movie')
-    //   }
-    // });
 });
 
-app.put('/register', (req, res) => {
+app.post('/register', (req, res) => {
     res.send('You are on the registration page!!!!!!!');
 });
 
@@ -89,16 +81,16 @@ app.get('/:user/settings', (req, res) => {
     res.send('You are officially in your user settings');
 });
 
-app.post('/:user/favorites/add/:movie', (req, res) => {
+app.put('/:user/favorites/add/:movie', (req, res) => {
     res.send('You are about to add a movie to your favorites list');
 });
 
 app.delete(':user/favorites/:movie', (req, res) => {
-    res.send('You hae succesfully deleted your movie')
+    res.status(movies);
 });
 
 app.delete(':user/settings/delete', (req, res) => {
-    res.send('You are about to delete your account');
+    res.send(movies);
 });
 
 app.use((err, req, res, next) => {

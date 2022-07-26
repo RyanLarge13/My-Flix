@@ -7,7 +7,60 @@
     <title>My first API</title>
 </head>
 <body>
-    <h1>What is does</h1>
-    <p>This application will be interacting with a database that stores data about different movies and retrieving that data.</p>
+    <h1>Vid-Flix API</h1>
+
+    <h2>What It Does</h2>
+    <p>This API interacts with a database that stores information on a large list of movies.</p>
+
+    <h2>Routing</h2>
+    <table>
+        <tr>
+            <th>URL Endpoints</th>
+            <th>Params</th>
+            <th>Method</th>
+            <th>Req Data</th>
+            <th>Res Data</th>
+        </tr>
+        <tr>
+            <td>/movies</td>
+            <td>Request, Response</td>
+            <td>GET</td>
+            <td>A large list of all movies to query</td>
+            <td>A large list of all movies to query</td>
+        </tr>
+        <tr>
+            <td>/movies/:title</td>
+            <td>Request, Response</td>
+            <td>GET</td>
+            <td>Fetches data of all of the movies within the data base</td>
+            <td>Returns the movie list fetched and filters out the movie matching the title given at the end of the URL Endpoint</td>
+        </tr>
+        <tr>
+            <td>/movies/:title/genre</td>
+            <td>Request, Response</td>
+            <td>GET</td>
+            <td>Fetches all the movies from the dtabase</td>
+            <td>Filters through the list of movies fethed and returns the genre of the movie searched with a matching title</td>
+        </tr>
+        <tr>
+            <td>/movies/:title/directors</td>
+            <td>Request, Response</td>
+            <td>GET</td>
+            <td>Fetches all the movies from the dtabase</td>
+            <td>Filters through the list of movies fethed and returns the directors of the movie searched with a matching title</td>
+        </tr>
+        <tr>
+            <td>/register</td>
+            <td>Request, Response</td>
+            <td>POST</td>
+            <td>Fetches user information</td>
+            <td>If information value matches exsiting inormation the function willl direct a new password, else, it will create a new user account on the website</td>
+        </tr>
+        <tr>
+            <td>/:user/settings</td>
+            <td></td>
+        </tr>
+    </table>
+
 </body>
 </html>

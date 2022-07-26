@@ -84,12 +84,12 @@ app.put('/:user/favorites/add/:movie', (req, res) => {
     res.send('You are about to add a movie to your favorites list');
 });
 
-app.delete(':user/favorites/:movie', (req, res) => {
-    res.status(movies);
+app.delete('/:user/favorites/:movie', (req, res) => {
+    res.send('You have deleted your favorite movie');
 });
 
-app.delete(':user/settings/delete', (req, res) => {
-    res.send(movies);
+app.delete('/:user/settings/delete', (req, res) => {
+    res.send('You have offically deleted your account');
 });
 
 app.use((err, req, res, next) => {

@@ -54,11 +54,35 @@
             <td>Request, Response</td>
             <td>POST</td>
             <td>Fetches user information</td>
-            <td>If information value matches exsiting inormation the function willl direct a new password, else, it will create a new user account on the website</td>
+            <td>If information value matches exsiting inormation the function will direct a new password, else, it will create a new user account on the website</td>
         </tr>
         <tr>
             <td>/:user/settings</td>
-            <td></td>
+            <td>Request, Response</td>
+            <td>GET</td>
+            <td>Fetches User account</td>
+            <td>Provides access to user account personalization settings</td>
+        </tr>
+        <tr>
+            <td>/:user/favorites/add/:title</td>
+            <td>Request, Response</td>
+            <td>PUT</td>
+            <td>Fetches a list of users favorite movies</td>
+            <td>Adds a selected movie to the list of favorites by the movie title</td>
+        </tr>
+        <tr>
+            <td>/:user/favorites/delete/:title</td>
+            <td>Request, Response</td>
+            <td>DELETE</td>
+            <td>Fetches a list of users favorite movies</td>
+            <td>Deletes selected movie by title from users favorites list</td>
+        </tr>
+        <tr>
+            <td>/:user/settings/delete</td>
+            <td>Request, Response</td>
+            <td>DELETE</td>
+            <td>Fetches all user account information</td>
+            <td>Deletes all user account data</td>
         </tr>
     </table>
 

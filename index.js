@@ -80,11 +80,11 @@ app.get('/:user/settings', (req, res) => {
     res.send('You are officially in your user settings');
 });
 
-app.put('/:user/favorites/add/:movie', (req, res) => {
+app.put('/:user/favorites/add/:title', (req, res) => {
     res.send('You are about to add a movie to your favorites list');
 });
 
-app.delete('/:user/favorites/:movie', (req, res) => {
+app.delete('/:user/favorites/delete/:title', (req, res) => {
     res.send('You have deleted your favorite movie');
 });
 

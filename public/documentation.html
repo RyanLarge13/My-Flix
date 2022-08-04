@@ -20,8 +20,6 @@
             <th>URL Endpoints</th>
             <th>Method</th>
             <th>Params</th>
-            <th>Req Data</th>
-            <th>Res Data</th>
             <th>Exmp Req</th>
             <th>Exmp Res</th>
         </tr>
@@ -32,8 +30,6 @@
             <td>/movies</td>
             <td>GET</td>
             <td>Object</td>
-            <td>A large list of all movies to query</td>
-            <td>A large list of all movies to query</td>
             <td>/movies</td>
             <td>[
               {
@@ -53,8 +49,6 @@
             <td>/movies/:title</td>
             <td>GET</td>
             <td>Object, String</td>
-            <td>Fetches data of all of the movies within the data base</td>
-            <td>Returns the movie list fetched and filters out the movie matching the title given at the end of the URL Endpoint</td>
             <td>/movies/Superman</td>
             <td> {
               title: 'Superman',
@@ -68,8 +62,6 @@
             <td>/movies/:title/genre</td>
             <td>GET</td>
             <td>Object, String</td>
-            <td>Fetches all the movies from the dtabase</td>
-            <td>Filters through the list of movies fethed and returns the genre of the movie searched with a matching title</td>
             <td>/movies/Superman/gernre</td>
             <td>'Action'</td>
         </tr>
@@ -80,8 +72,6 @@
             <td>/movies/:title/directors</td>
             <td>GET</td>
             <td>Object, Array</td>
-            <td>Fetches all the movies from the dtabase</td>
-            <td>Filters through the list of movies fethed and returns the directors of the movie searched with a matching title</td>
             <td>/movies/Superman/directors</td>
             <td>['Richard Donner']</td>
         </tr>
@@ -93,8 +83,6 @@
             <td>/register</td>
             <td>POST</td>
             <td>Object</td>
-            <td>Fetches user information</td>
-            <td>If information value matches exsiting inormation the function will direct a new password, else, it will create a new user account on the website</td>
             <td>/register</td>
             <td>{
               userName: '',
@@ -108,8 +96,6 @@
             <td>/:user/settings</td>
             <td>GET</td>
             <td>Object, Boolean</td>
-            <td>Fetches User account</td>
-            <td>Provides access to user account personalization settings</td>
             <td>/JohnDoe/settings</td>
             <td>{
               email: false,
@@ -124,8 +110,6 @@
             <td>/:user/favorites/add/:title</td>
             <td>PUT</td>
             <td>Array, Object</td>
-            <td>Fetches a list of users favorite movies</td>
-            <td>Adds a selected movie to the list of favorites by the movie title</td>
             <td>/JohnDoe/favorites/add/Superman</td>
             <td>[
               {
@@ -143,8 +127,6 @@
             <td>/:user/favorites/delete/:title</td>
             <td>DELETE</td>
             <td>Object, String</td>
-            <td>Fetches a list of users favorite movies</td>
-            <td>Deletes selected movie by title from users favorites list</td>
             <td>JohnDoe/favorites/delete/Superman</td>
             <td>'Superman was deleted', {
                 title: 'Superman',
@@ -157,8 +139,6 @@
             <td>/:user/settings/delete</td>
             <td>DELETE</td>
             <td>HTML home page, string</td>
-            <td>Fetches all user account information</td>
-            <td>Deletes all user account data</td>
             <td>/JohnDoe/settings/delete</td>
             <td>'Your account was succesfully deleted.'</td>
         </tr>

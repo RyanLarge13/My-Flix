@@ -6,6 +6,7 @@
 
 h1 {
   text-align: center;
+  margin-top: 1em;
   margin-bottom: 0.5em;
 }
 
@@ -14,22 +15,23 @@ h2 {
 }
 
 p {
-  padding-left: 2em;
+  padding-top: 0.75em;
+  padding-left: 1.5em;
   margin-bottom: 2.5em;
 }
 
 table {
   padding-left: 1em;
   margin-top: 1em;
+  table-layout: fixed;
+  width: 100%;
 }
 table tr th {
   border-bottom: 1px solid red;
-  width: 25%;
+  padding: 1em;
 }
-table td {
-  width: 25%;
+table tr td {
   text-align: center;
   border-bottom: 1px solid blue;
-}
-
-/*# sourceMappingURL=style.css.map */
+  padding: 1em;
+}/*# sourceMappingURL=style.css.map */

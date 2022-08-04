@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css" type="text/css" media="all" />
     <title>My first API</title>
 </head>
 <body>
@@ -15,74 +16,149 @@
     <h2>Routing</h2>
     <table>
         <tr>
+            <th>Description</th>
             <th>URL Endpoints</th>
-            <th>Params</th>
             <th>Method</th>
+            <th>Params</th>
             <th>Req Data</th>
             <th>Res Data</th>
+            <th>Exmp Req</th>
+            <th>Exmp Res</th>
         </tr>
         <tr>
+            <td>Returns an array of movies 
+            with title genre and much more information 
+            about them</td>
             <td>/movies</td>
-            <td>Request, Response</td>
             <td>GET</td>
+            <td>Object</td>
             <td>A large list of all movies to query</td>
             <td>A large list of all movies to query</td>
+            <td>/movies</td>
+            <td>[
+              {
+              title: 'Moana,
+              genre: 'Adventure'
+              }, 
+              {
+              title: 'Superman',
+              genre: 'Action'
+              }
+              ]</td>
         </tr>
         <tr>
+            <td>Returns a movie object
+            which key 'title' value 
+            matches the req paramiters.</td>
             <td>/movies/:title</td>
-            <td>Request, Response</td>
             <td>GET</td>
+            <td>Object, String</td>
             <td>Fetches data of all of the movies within the data base</td>
             <td>Returns the movie list fetched and filters out the movie matching the title given at the end of the URL Endpoint</td>
+            <td>/movies/Superman</td>
+            <td> {
+              title: 'Superman',
+              genre: 'Action'
+            } </td>
         </tr>
         <tr>
+            <td>Returns a string with a value 
+            from the genre key in the movie object
+            which is returned by title</td>
             <td>/movies/:title/genre</td>
-            <td>Request, Response</td>
             <td>GET</td>
+            <td>Object, String</td>
             <td>Fetches all the movies from the dtabase</td>
             <td>Filters through the list of movies fethed and returns the genre of the movie searched with a matching title</td>
+            <td>/movies/Superman/gernre</td>
+            <td>'Action'</td>
         </tr>
         <tr>
+            <td>Returns an Array with a value/'s 
+            from the directors key in the movie object
+            which is returned by title</td>
             <td>/movies/:title/directors</td>
-            <td>Request, Response</td>
             <td>GET</td>
+            <td>Object, Array</td>
             <td>Fetches all the movies from the dtabase</td>
             <td>Filters through the list of movies fethed and returns the directors of the movie searched with a matching title</td>
+            <td>/movies/Superman/directors</td>
+            <td>['Richard Donner']</td>
         </tr>
         <tr>
+            <td>Serves an html page 
+            with a form to register
+            as a new user, or sign in 
+            if credentials exsist.</td>
             <td>/register</td>
-            <td>Request, Response</td>
             <td>POST</td>
+            <td>Object</td>
             <td>Fetches user information</td>
             <td>If information value matches exsiting inormation the function will direct a new password, else, it will create a new user account on the website</td>
+            <td>/register</td>
+            <td>{
+              userName: '',
+              pass: ''
+            }</td>
         </tr>
         <tr>
+            <td>This endpoint will serve an html page to the user
+            that shows a list of settings that can be 
+            customized</td>
             <td>/:user/settings</td>
-            <td>Request, Response</td>
             <td>GET</td>
+            <td>Object, Boolean</td>
             <td>Fetches User account</td>
             <td>Provides access to user account personalization settings</td>
+            <td>/JohnDoe/settings</td>
+            <td>{
+              email: false,
+              pushNotifcation: true,
+              showInfo: false
+            }</td>
         </tr>
         <tr>
+            <td>This endpoint updates an array
+            that contains all of the users
+            favorite movies</td>
             <td>/:user/favorites/add/:title</td>
-            <td>Request, Response</td>
             <td>PUT</td>
+            <td>Array, Object</td>
             <td>Fetches a list of users favorite movies</td>
             <td>Adds a selected movie to the list of favorites by the movie title</td>
+            <td>/JohnDoe/favorites/add/Superman</td>
+            <td>[
+              {
+                title: 'Superman',
+                genre: 'Action'
+              }
+            ]</td>
         </tr>
         <tr>
+            <td>This endpoint deletes a favorite
+            movie previously added to the Array 
+            of objects of favorite movies that
+            matches the title given 
+            in the URL endpoint.</td>
             <td>/:user/favorites/delete/:title</td>
-            <td>Request, Response</td>
             <td>DELETE</td>
+            <td>Object, String</td>
             <td>Fetches a list of users favorite movies</td>
             <td>Deletes selected movie by title from users favorites list</td>
+            <td>JohnDoe/favorites/delete/Superman</td>
+            <td>'Superman was deleted', {
+            }</td>
         </tr>
         <tr>
+            <td>This endpoint deletes the
+            users account completely.</td>
             <td>/:user/settings/delete</td>
-            <td>Request, Response</td>
             <td>DELETE</td>
+            <td>HTML home page, string</td>
             <td>Fetches all user account information</td>
             <td>Deletes all user account data</td>
+            <td>/JohnDoe/settings/delete</td>
+            <td>'Your account was succesfully deleted.'</td>
         </tr>
     </table>
 

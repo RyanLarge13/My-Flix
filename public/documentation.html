@@ -29,7 +29,7 @@
             about them</td>
             <td>/movies</td>
             <td>GET</td>
-            <td>Object</td>
+            <td>None</td>
             <td>/movies</td>
             <td>[
               {
@@ -48,7 +48,7 @@
             matches the req paramiters.</td>
             <td>/movies/:title</td>
             <td>GET</td>
-            <td>Object, String</td>
+            <td>A string matching a movie title.</td>
             <td>/movies/Superman</td>
             <td> {
               title: 'Superman',
@@ -61,7 +61,7 @@
             which is returned by title</td>
             <td>/movies/:title/genre</td>
             <td>GET</td>
-            <td>Object, String</td>
+            <td>A string matching a movie title</td>
             <td>/movies/Superman/gernre</td>
             <td>'Action'</td>
         </tr>
@@ -71,7 +71,7 @@
             which is returned by title</td>
             <td>/movies/:title/directors</td>
             <td>GET</td>
-            <td>Object, Array</td>
+            <td>A string matching a movie title</td>
             <td>/movies/Superman/directors</td>
             <td>['Richard Donner']</td>
         </tr>
@@ -82,7 +82,7 @@
             if credentials exsist.</td>
             <td>/register</td>
             <td>POST</td>
-            <td>Object</td>
+            <td>Filled out information on registration form</td>
             <td>/register</td>
             <td>{
               userName: '',
@@ -95,7 +95,7 @@
             customized</td>
             <td>/:user/settings</td>
             <td>GET</td>
-            <td>Object, Boolean</td>
+            <td>Your user name of the account you manage</td>
             <td>/JohnDoe/settings</td>
             <td>{
               email: false,
@@ -109,7 +109,7 @@
             favorite movies</td>
             <td>/:user/favorites/add/:title</td>
             <td>PUT</td>
-            <td>Array, Object</td>
+            <td>Your username and a matching title of a movie.</td>
             <td>/JohnDoe/favorites/add/Superman</td>
             <td>[
               {
@@ -126,7 +126,7 @@
             in the URL endpoint.</td>
             <td>/:user/favorites/delete/:title</td>
             <td>DELETE</td>
-            <td>Object, String</td>
+            <td>Your username and the title of a movie that matches a movie in your favorites list.</td>
             <td>JohnDoe/favorites/delete/Superman</td>
             <td>'Superman was deleted', {
                 title: 'Superman',
@@ -138,7 +138,7 @@
             users account completely.</td>
             <td>/:user/settings/delete</td>
             <td>DELETE</td>
-            <td>HTML home page, string</td>
+            <td>Your username</td>
             <td>/JohnDoe/settings/delete</td>
             <td>'Your account was succesfully deleted.'</td>
         </tr>

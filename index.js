@@ -4,6 +4,7 @@ const Movies = Models.movie;
 const Users = Model.User;
 const app = express();
 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(morgan('common'));
@@ -77,8 +78,45 @@ app.get('/movies/:title/directors', (req, res) => {
         res.send('Return the director of superman');
 });
 
-app.post('/register', (req, res) => {
-    res.send('You are on the registration page!!!!!!!');
+app.post('/users', (req, res) => {
+    Users.findOne({ Username: req.body.Username }).then((user) => {
+    	if (user) {
+    		return res.status(400).send(`${req.body.Username} already exists..`);
+    	} else {
+    		Users.create({
+    			Username: req.body.Username,
+    			Password: req.body.Password,
+    			Email: req.body.Email, 
+    			Birthday: req.body.Birthday
+    		}).then((user) => {
+    			res.status(201).json(user)
+    		}).catch((err) => {
+    			console.error(err);
+    			res.status(500).send(`Error: ${err} `);
+    		});
+    	}
+    }).catch((err) => {
+    	console.error(err);
+    	res.status(500).send(`Error: ${err}`);
+    });
+});
+
+app.get('/users', (req, res) => {
+	User.find().then((users) => {
+		res.status(201).json(users);
+	}).catch((err) => {
+		console.error(err);
+		res.status(500).send(`Error: ${err}`);
+	});
+});
+
+app.get('users/:Username', (req, res) => {
+	Users.findOne({ Username: req.params.Username }).then((user) => {
+		res.json(user);
+	}).catch((err) => {
+		console.error(err);
+		res.status(500).send(`Error: ${err}`);
+	});
 });
 
 app.get('/:user/settings', (req, res) => {
@@ -87,6 +125,22 @@ app.get('/:user/settings', (req, res) => {
 
 app.put('/:user/favorites/add/:title', (req, res) => {
     res.send('You are about to add a movie to your favorites list');
+});
+
+app.put('users/:Username', (req, res) => {
+	Users.findOneAndUpdate({ Username: req.params.Username }, { $set: {
+		Username: req.body.Username,
+		Password: req.body.Password,
+		Email: req.body.Email,
+		Birthday: req.body.Birthday
+	}	}, { new: true }, (err, updateUser) => {
+		if (err) {
+			console.error(err);
+			res.status(500).send(`Error ${err}`);
+		} else {
+			res.json(updateUser);
+		}
+	});
 });
 
 app.delete('/:user/favorites/delete/:title', (req, res) => {

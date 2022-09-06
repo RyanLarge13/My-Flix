@@ -79,8 +79,18 @@ app.get('/:user/settings', (req, res) => {
     res.send('You are officially in your user settings');
 });
 
-app.put('/:user/favorites/add/:title', (req, res) => {
-    res.send('You are about to add a movie to your favorites list');
+app.post('/:users/:Username/movies/:MovieID', (req, res) => {
+    Users.findOneAndUpdate({ Username: req.params.Username }, {
+    	$push: { favoriteMovies: req.params.MovieID } 
+    	}, { new: true }, (err, updateUser) => {
+    		if (err) {
+    			console.error(err);
+    			res.status(500).send(`Error ${err}`);
+    		} else {
+    			res.json(updateUser);
+    		}
+    	}
+    })
 });
 
 app.put('users/:Username', (req, res) => {
@@ -96,6 +106,19 @@ app.put('users/:Username', (req, res) => {
 		} else {
 			res.json(updateUser);
 		}
+	});
+});
+
+app.delete('users/:Username', (req, res) => {
+	Users.findOneAndRemove({ Username: req.params.Username }).then((user) => {
+		if (!user) {
+			res.status(400).send(`${req.params.Username} was not found.`);
+		} else {
+			res.status(200).send(`${req.params.Username} was successfully deleted.`);
+		}
+	}).catch((err) => {
+		console.error(err);
+		res.status(500).send(`Error: ${err}`);
 	});
 });
 

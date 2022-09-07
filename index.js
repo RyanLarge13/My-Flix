@@ -89,8 +89,7 @@ app.post('/:users/:Username/movies/:MovieID', (req, res) => {
     		} else {
     			res.json(updateUser);
     		}
-    	}
-    })
+    });
 });
 
 app.put('users/:Username', (req, res) => {

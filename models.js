@@ -9,7 +9,9 @@ const movieSchema = mongoose.Schema({
 	}, 
 	Director: {
 		Name: String, 
-		Bio: String
+		Bio: String,
+		Birthyear: String,
+		Death: String
 	}, 
 	Actors: [String], 
 	ImagePath: String, 
@@ -27,5 +29,5 @@ const userSchema = mongoose.Schema({
 const Movie = mongoose.model('Movie', movieSchema);
 const user = mongoose.model('User', userSchema);
 
-module.export.Movie = 'Movie';
-module.export.User = 'User';
+module.exports.Movie = Movie;
+module.exports.User = user;

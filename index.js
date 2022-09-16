@@ -1,7 +1,7 @@
 const { json } = require('body-parser');
 const express = require('express'), morgan = require('morgan'), path = require('path'), bodyParser = require('body-parser'), uuid = require('uuid'), mongoose = require('mongoose');
 const Models = require('./models.js');
-const Movies = Models.movie;
+const Movies = Models.Movie;
 const Users = Models.User;
 const app = express();
 
@@ -10,11 +10,15 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(morgan('common'));
 
-mongoose.connect('mongodb://localhost:27017/[movie_api]', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://127.0.0.1:27017/[movie_api]', { useNewUrlParser: true, useUnifiedTopology: true }).then((con) => {
+	console.log(`You are in!!!!!. Your connection state is: ${con}`);
+}).catch((err) => {
+	if (err) console.log(`Error! : ${err}`);
+});
 
 app.get('/movies', (req, res) => {
     res.json(Movies);
-});
+})
 
 app.get('/movies/:title', (req, res) => {
     res.json(Movies.find((movie) => {

@@ -1,3 +1,4 @@
+const { json } = require('body-parser');
 const express = require('express'), morgan = require('morgan'), path = require('path'), bodyParser = require('body-parser'), uuid = require('uuid'), mongoose = require('mongoose');
 const Models = require('./models.js');
 const Movies = Models.movie;
@@ -19,7 +20,10 @@ app.get('/movies/:title', (req, res) => {
     res.json(Movies.find((movie) => {
         return movie.title === req.params.title;
         })
-    );
+    ).catch((err) => {
+		console.error(err);
+		res.status(500).send(`Error: ${err}`);
+	})
 });
 
 app.get('/movies/:title/genre', (req, res) => {
@@ -27,11 +31,32 @@ app.get('/movies/:title/genre', (req, res) => {
         if (movie.title === req.params.title) {
             return res.send(movie.genre);
         }
-    })
+    }).catch((err) => {
+		console.error(err);
+		res.status(500).send(`Error: ${err}`);
+	})
 });
 
 app.get('/movies/:title/directors', (req, res) => {
-        res.send('Return the director of superman');
+    res.json(Movies.find((movie) => {
+		if (movie.directors === req.params.directors) {
+			return res.send(movie.directors);
+		}
+	})).catch((err) => {
+		console.error(err);
+		res.status(500).send(`Error: ${err}`);
+	})
+});
+
+app.get('/directors/:director', (req, res) => {
+	res.json(Movies.find((movie) => {
+		if (movie.directors === req.params.director) {
+			return res.send(movie.directors);
+		}
+	})).catch((err) => {
+		console.error(err);
+		res.status(500).send(`Error: ${err}`);
+	})
 });
 
 app.post('/users', (req, res) => {

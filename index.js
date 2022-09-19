@@ -37,9 +37,9 @@ app.get('/movies/:title', (req, res) => {
 	})
 });
 
-app.get('/movies/:title/genre', (req, res) => {
-    Movies.findOne({ Title: req.params.title }).then(movie => {
-		res.status(201).json(movie.Genre);
+app.get('/movies/genre/:title', (req, res) => {
+    Movies.findOne({ 'Genre.Name': req.params.title }).then(movie => {
+		res.status(201).json(movie.Genre.Description);
 	}).catch((err) => {
 		console.error(err);
 		res.status(500).send(`Error: ${err}`);
@@ -139,15 +139,15 @@ app.delete('/users/:Username', (req, res) => {
 	});
 });
 
-app.delete('/:user/favorites/delete/:title', (req, res) => {
-    res.send('You have deleted your favorite movie');
+app.delete('/:users/:Username/movies/:MovieID', (req, res) => {
+    Users.findOneAndRemove({ Username: req.params.Username }).then((user) => {
+		if (!user) res.status(500).send(`${req.params.Username} was not found`);
+		else res.status(201).send(`Your favorite movie ${req.params.MovieID} was succesfully deleted.`);
+	}).catch((err) => {
+		console.log(err);
+		res.status(500).send(`Error: ${err}`);
+	})
 });
-
-app.delete('/:user/settings/delete', (req, res) => {
-    res.send('You have offically deleted your account');
-});
-
-
 
 app.use((err, req, res, next) => {
     console.error(err.stack);

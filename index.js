@@ -16,16 +16,21 @@ mongoose.connect('mongodb://127.0.0.1:27017/My-Flix?', { useNewUrlParser: true, 
 });
 
 app.get('/', (req, res) => {
-	res.sendFile(__dirname + '/public/documentation.html');
+	res.status(201).sendFile(__dirname + '/public/documentation.html');
 })
 
 app.get('/movies', (req, res) => {
-	Movies.find().then(movies => res.json(movies));
+	Movies.find().then(movies => {
+		res.status(201).json(movies)
+	}).catch((err) => {
+		console.log(err)
+		res.status(500).send(`Error: ${err}`);
+	});
 })
 
 app.get('/movies/:title', (req, res) => {
-    Movies.findOne({Title: req.params.title}).then((movie) => {
-		res.json(movie);
+    Movies.findOne({ Title: req.params.title }).then((movie) => {
+		res.status(201).json(movie);
 	}).catch((err) => {
 		console.log(err);
 		res.status(500).send(`Error: ${err}`);
@@ -33,35 +38,43 @@ app.get('/movies/:title', (req, res) => {
 });
 
 app.get('/movies/:title/genre', (req, res) => {
-    Movies.findOne({Title: req.params.title}).then(movie => {
-		res.json(movie.Genre);
+    Movies.findOne({ Title: req.params.title }).then(movie => {
+		res.status(201).json(movie.Genre);
 	}).catch((err) => {
 		console.error(err);
 		res.status(500).send(`Error: ${err}`);
 	})
 });
 
-app.get('/movies/:title/directors', (req, res) => {
-    Movies.findOne({Title: req.params.title}).then(movie => {
-		res.json(movie.Director);
+app.get('/movies/director/:name', (req, res) => {
+    Movies.findOne({ 'Director.Name': req.params.name }).then(movie => {
+		res.status(201).json(movie.Director);
 	}).catch((err) => {
 		console.error(err);
 		res.status(500).send(`Error: ${err}`);
 	})
 });
 
-app.get('/directors/:director', (req, res) => {
-	res.json(Movies.find((movie) => {
-		if (movie.directors === req.params.director) {
-			return res.send(movie.directors);
-		}
-	})).catch((err) => {
+app.get('/users', (req, res) => {
+	Users.find().then((users) => {
+		res.status(201).json(users);
+	}).catch((err) => {
 		console.error(err);
 		res.status(500).send(`Error: ${err}`);
-	})
+	});
 });
 
-app.post('/users', (req, res) => {
+app.get('/users/:Username', (req, res) => {
+	Users.findOne({ 'Username': req.params.Username }).then((user) => {
+		if (!user) res.status(500).send('There is no user with that name.');
+		else res.status(201).json(user)
+	}).catch((err) => {
+		console.error(err);
+		res.status(500).send(`Error: ${err}`);
+	});
+});
+
+app.post('/users/:Username', (req, res) => {
     Users.findOne({ Username: req.body.Username }).then((user) => {
     	if (user) {
     		return res.status(400).send(`${req.body.Username} already exists..`);
@@ -84,28 +97,6 @@ app.post('/users', (req, res) => {
     });
 });
 
-app.get('/users', (req, res) => {
-	Users.find().then((users) => {
-		res.status(201).json(users);
-	}).catch((err) => {
-		console.error(err);
-		res.status(500).send(`Error: ${err}`);
-	});
-});
-
-app.get('users/:Username', (req, res) => {
-	Users.findOne({ Username: req.params.Username }).then((user) => {
-		res.json(user);
-	}).catch((err) => {
-		console.error(err);
-		res.status(500).send(`Error: ${err}`);
-	});
-});
-
-app.get('/:user/settings', (req, res) => {
-    res.send('You are officially in your user settings');
-});
-
 app.post('/:users/:Username/movies/:MovieID', (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
     	$push: { favoriteMovies: req.params.MovieID } 
@@ -119,7 +110,7 @@ app.post('/:users/:Username/movies/:MovieID', (req, res) => {
     });
 });
 
-app.put('users/:Username', (req, res) => {
+app.put('/users/:Username', (req, res) => {
 	Users.findOneAndUpdate({ Username: req.params.Username }, { $set: {
 		Username: req.body.Username,
 		Password: req.body.Password,
@@ -135,8 +126,8 @@ app.put('users/:Username', (req, res) => {
 	});
 });
 
-app.delete('users/:Username', (req, res) => {
-	Users.findOneAndRemove({ Username: req.params.Username }).then((user) => {
+app.delete('/users/:Username', (req, res) => {
+	Users.findOneAndRemove({ 'Users.Username': req.params.Username }).then((user) => {
 		if (!user) {
 			res.status(400).send(`${req.params.Username} was not found.`);
 		} else {
@@ -155,6 +146,8 @@ app.delete('/:user/favorites/delete/:title', (req, res) => {
 app.delete('/:user/settings/delete', (req, res) => {
     res.send('You have offically deleted your account');
 });
+
+
 
 app.use((err, req, res, next) => {
     console.error(err.stack);

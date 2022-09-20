@@ -99,7 +99,7 @@ app.post('/users/:Username', (req, res) => {
 
 app.post('/:users/:Username/movies/:MovieID', (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
-    	$push: { favoriteMovies: req.params.MovieID } 
+    	$push: { FavoriteMovies: req.params.MovieID } 
     	}, { new: true }, (err, updateUser) => {
     		if (err) {
     			console.error(err);

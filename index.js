@@ -127,7 +127,7 @@ app.put('/users/:Username', (req, res) => {
 });
 
 app.delete('/users/:Username', (req, res) => {
-	Users.findOneAndRemove({ 'Users.Username': req.params.Username }).then((user) => {
+	Users.findOneAndRemove({ Username: req.params.Username }).then((user) => {
 		if (!user) {
 			res.status(400).send(`${req.params.Username} was not found.`);
 		} else {
@@ -140,9 +140,15 @@ app.delete('/users/:Username', (req, res) => {
 });
 
 app.delete('/:users/:Username/movies/:MovieID', (req, res) => {
-    Users.findOneAndRemove({ Username: req.params.Username }).then((user) => {
+    Users.findOneAndRemove({ FavoriteMovies: req.params.MovieID }).then((user) => {
 		if (!user) res.status(500).send(`${req.params.Username} was not found`);
-		else res.status(201).send(`Your favorite movie ${req.params.MovieID} was succesfully deleted.`);
+		else {
+			user.FavoriteMovies.forEach(movie => {
+				if (movie === req.params.MovieID) {
+					res.status(201).send(`${movie} has been deleted from your favorites.`);
+				} 
+			});
+		}
 	}).catch((err) => {
 		console.log(err);
 		res.status(500).send(`Error: ${err}`);

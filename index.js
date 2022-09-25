@@ -100,7 +100,6 @@ app.get("/users", passport.authenticate('jwt', {session: false}), (req, res) => 
     });
 });
 
-<<<<<<< HEAD
 app.get("/users/:Username", passport.authenticate('jwt', {session: false}), (req, res) => {
   Users.findOne({ Username: req.params.Username })
     .then((user) => {
@@ -213,7 +212,7 @@ app.delete("/:users/:Username/movies/:MovieID", passport.authenticate('jwt', {se
       console.log(err);
       res.status(500).send(`Error: ${err}`);
     });
-=======
+    
 app.delete('/users/:Username', (req, res) => {
 	Users.findOneAndRemove({ Username: req.params.Username }).then((user) => {
 		if (!user) {
@@ -240,8 +239,7 @@ app.delete('/:users/:Username/movies/:MovieID', (req, res) => {
 	}).catch((err) => {
 		console.log(err);
 		res.status(500).send(`Error: ${err}`);
-	})
->>>>>>> 6dd36dd28ec5483ac17da9d51748d5e562218e44
+	});
 });
 
 app.use((err, req, res, next) => {

@@ -100,6 +100,7 @@ app.get("/users", passport.authenticate('jwt', {session: false}), (req, res) => 
     });
 });
 
+<<<<<<< HEAD
 app.get("/users/:Username", passport.authenticate('jwt', {session: false}), (req, res) => {
   Users.findOne({ Username: req.params.Username })
     .then((user) => {
@@ -212,6 +213,35 @@ app.delete("/:users/:Username/movies/:MovieID", passport.authenticate('jwt', {se
       console.log(err);
       res.status(500).send(`Error: ${err}`);
     });
+=======
+app.delete('/users/:Username', (req, res) => {
+	Users.findOneAndRemove({ Username: req.params.Username }).then((user) => {
+		if (!user) {
+			res.status(400).send(`${req.params.Username} was not found.`);
+		} else {
+			res.status(200).send(`${req.params.Username} was successfully deleted.`);
+		}
+	}).catch((err) => {
+		console.error(err);
+		res.status(500).send(`Error: ${err}`);
+	});
+});
+
+app.delete('/:users/:Username/movies/:MovieID', (req, res) => {
+    Users.findOneAndRemove({ FavoriteMovies: req.params.MovieID }).then((user) => {
+		if (!user) res.status(500).send(`${req.params.Username} was not found`);
+		else {
+			user.FavoriteMovies.forEach(movie => {
+				if (movie === req.params.MovieID) {
+					res.status(201).send(`${movie} has been deleted from your favorites.`);
+				} 
+			});
+		}
+	}).catch((err) => {
+		console.log(err);
+		res.status(500).send(`Error: ${err}`);
+	})
+>>>>>>> 6dd36dd28ec5483ac17da9d51748d5e562218e44
 });
 
 app.use((err, req, res, next) => {

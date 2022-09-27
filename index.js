@@ -212,6 +212,7 @@ app.delete("/:users/:Username/movies/:MovieID", passport.authenticate('jwt', {se
       console.log(err);
       res.status(500).send(`Error: ${err}`);
     });
+  });
     
 app.delete('/users/:Username', (req, res) => {
 	Users.findOneAndRemove({ Username: req.params.Username }).then((user) => {
@@ -246,6 +247,4 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
 });
 
-app.listen(8080, () => {
-  console.log("Your app is running on port 8080");
-});
+app.listen(8080, () => console.log("Your app is running on port 8080"));

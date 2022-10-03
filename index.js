@@ -112,7 +112,7 @@ app.get("/users/:Username", passport.authenticate('jwt', {session: false}), (req
     });
 });
 
-app.post("/users/:Username", (req, res) => {
+app.post("/users", (req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
@@ -157,9 +157,9 @@ app.post("/:users/:Username/movies/:MovieID", passport.authenticate('jwt', {sess
   );
 });
 
-app.put("/users/:Username", passport.authenticate('jwt', {session: false}), (req, res) => {
+app.put("/users", passport.authenticate('jwt', {session: false}), (req, res) => {
   Users.findOneAndUpdate(
-    { Username: req.params.Username },
+    { Username: req.body.Username },
     {
       $set: {
         Username: req.body.Username,

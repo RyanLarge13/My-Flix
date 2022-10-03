@@ -33,7 +33,7 @@ mongoose
     if (err) console.log(`Error!: ${err}`);
   });
 
-app.get("/", passport.authenticate("jwt", { session: false }), (req, res) => {
+app.get("/", (req, res) => {
   res.status(201).sendFile(__dirname + "/public/documentation.html");
 });
 
@@ -112,7 +112,7 @@ app.get("/users/:Username", passport.authenticate('jwt', {session: false}), (req
     });
 });
 
-app.post("/users/:Username", passport.authenticate('jwt', {session: false}), (req, res) => {
+app.post("/users/:Username", (req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {

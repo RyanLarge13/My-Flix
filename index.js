@@ -313,4 +313,6 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
 });
 
-app.listen(port, 0.0.0.0, () => console.log(`Your app is running on port ${port}.`));
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Your app is running on port ${port}.`);
+});

@@ -13,6 +13,8 @@ const Models = require("./models.js");
 const Movies = Models.Movie;
 const Users = Models.User;
 const app = express();
+
+//Middleware
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -36,6 +38,7 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use(morgan("common"));
 
+//Connecting to the database
 mongoose
   .connect("mongodb://127.0.0.1:27017/My-Flix?", {
     useNewUrlParser: true,
@@ -51,6 +54,8 @@ mongoose
     if (err) console.log(`Error!: ${err}`);
   });
 
+//Begin defining all routes
+//GET Requests
 app.get("/", (req, res) => {
   res.status(201).sendFile(__dirname + "/public/documentation.html");
 });
@@ -146,6 +151,7 @@ app.get(
   }
 );
 
+//POST Requests
 app.post(
   "/users",
   [
@@ -214,6 +220,7 @@ app.post(
   }
 );
 
+//PUT Requests
 app.put(
   "/users",
   passport.authenticate("jwt", { session: false }),
@@ -241,6 +248,7 @@ app.put(
   }
 );
 
+//Delete Requests
 app.delete(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),

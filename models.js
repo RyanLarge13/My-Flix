@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
+//This Schema defines the format of how to store movie information
 const movieSchema = mongoose.Schema({
   Title: { type: String, required: true },
   Description: { type: String, required: true },
@@ -19,6 +20,7 @@ const movieSchema = mongoose.Schema({
   Featured: Boolean,
 });
 
+//This is a user Schema here to define the structure of how user inputs need to be formatted when registering
 const userSchema = mongoose.Schema({
   Username: { type: String, required: true },
   Password: { type: String, required: true },
@@ -27,6 +29,7 @@ const userSchema = mongoose.Schema({
   FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Movie" }],
 });
 
+//The two methods below create a hashed password in the database to store as a user's password.
 userSchema.statics.hashPassword = (password) => {
   return bcrypt.hashSync(password, 10);
 };

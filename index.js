@@ -40,7 +40,7 @@ app.use(morgan("common"));
 
 //Connecting to the database
 mongoose
-  .connect("mongodb://127.0.0.1:27017/My-Flix?", {
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -313,6 +313,6 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
 });
 
-app.listen(port, '0.0.0.0', () => {
+app.listen(port, "0.0.0.0", () => {
   console.log(`Your app is running on port ${port}.`);
 });

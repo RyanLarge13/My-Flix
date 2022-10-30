@@ -45,10 +45,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then((connection) => {
-    console.log(
-      `You are in!!!!!. Your connection state is:`,
-      connection.connections
-    );
+    console.log(`You are in!!!!!`);
   })
   .catch((err) => {
     if (err) console.log(`Error!: ${err}`);
@@ -163,20 +160,20 @@ app.post(
     check("Password", "Password is required").not().isEmpty(),
     check("Email", "Email does not appear to be valid").isEmail(),
   ],
-  (req, res) => {
+  async (req, res) => {
     let errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
     let hashedPassword = Users.hashPassword(req.body.Password);
-    Users.findOne({ Username: req.body.Username })
-      .then((user) => {
+    await Users.findOne({ Username: req.body.Username })
+      .then(async (user) => {
         if (user) {
           return res.status(400).send(`${req.body.Username} already exists..`);
         } else {
-          Users.create({
+          await Users.create({
             Username: req.body.Username,
-            Password: hashPassword,
+            Password: hashedPassword,
             Email: req.body.Email,
             Birthday: req.body.Birthday,
           })

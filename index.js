@@ -6,7 +6,11 @@ const express = require("express"),
   mongoose = require("mongoose"),
   cors = require("cors");
 const dotenv = require("dotenv").config();
-const allowedOrigins = ["http://localhost:8080", "http://localhost:1234","http://testsite.com"];
+const allowedOrigins = [
+  "http://localhost:8080",
+  "http://localhost:1234",
+  "http://testsite.com",
+];
 const port = process.env.PORT || 8080;
 const { check, validationResult } = require("express-validator");
 const Models = require("./models.js");
@@ -57,19 +61,16 @@ app.get("/", (req, res) => {
   res.status(201).sendFile(__dirname + "/public/documentation.html");
 });
 
-app.get(
-  "/movies",
-  (req, res) => {
-    Movies.find()
-      .then((movies) => {
-        res.status(201).json(movies);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).send(`Error: ${err}`);
-      });
-  }
-);
+app.get("/movies", (req, res) => {
+  Movies.find({})
+    .then((movies) => {
+      res.status(201).json(movies);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send(`Error: ${err}`);
+    });
+});
 
 app.get(
   "/movies/:title",

@@ -172,19 +172,19 @@ app.post(
           return res.status(400).send(`${req.body.Username} already exists..`);
         }
         if (!user) {
-          Users.create({
+          return Users.create({
             Username: req.body.Username,
             Password: hashedPassword,
             Email: req.body.Email,
           })
             .then((user) => {
-              return res
-                .status(201)
-                .json({ message: "Your account was created!" }, user);
+              return res.status(200).json({
+                message: `Your account was created! ${user.Username}`,
+              });
             })
             .catch((err) => {
               console.error(err);
-              return res.status(500).send(`Error: ${err} `);
+              return res.status(500).send(`Error: ${err}`);
             });
         }
       })

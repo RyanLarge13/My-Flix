@@ -10,8 +10,9 @@ const ExtractJwt = passportJwt.ExtractJwt;
 passport.use(
   new localStrategy(
     {
-      usernameField: "Username",
-      passwordField: "Password",
+      usernameField: "username",
+      passwordField: "password",
+      passReqToCallback: true,
     },
     (username, password, callback) => {
       Users.findOne({ Username: username }, (err, user) => {

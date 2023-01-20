@@ -175,13 +175,13 @@ app.post(
             Email: req.body.Email,
           })
             .then((user) => {
-              res
+              return res
                 .status(201)
                 .json({ message: "Your account was created!" }, user);
             })
             .catch((err) => {
               console.error(err);
-              res.status(500).send(`Error: ${err} `);
+              return res.status(500).send(`Error: ${err} `);
             });
         }
         if (user) {

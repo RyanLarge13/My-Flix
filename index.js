@@ -168,9 +168,7 @@ app.post(
     let hashedPassword = Users.hashPassword(req.body.Password);
     await Users.findOne({ Username: req.body.Username })
       .then(async (user) => {
-        if (user) {
-          return res.status(400).send(`${req.body.Username} already exists..`);
-        } else {
+        if (!user) {
           await Users.create({
             Username: req.body.Username,
             Password: hashedPassword,
@@ -185,6 +183,9 @@ app.post(
               console.error(err);
               res.status(500).send(`Error: ${err} `);
             });
+        }
+        if (user) {
+          return res.status(400).send(`${req.body.Username} already exists..`);
         }
       })
       .catch((err) => {

@@ -33,12 +33,12 @@ app.use(
     },
   })
 );
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 let auth = require("./auth")(app);
 const passport = require("passport");
 require("./passport");
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use(morgan("common"));
 
@@ -121,9 +121,9 @@ app.get(
   "/users",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Users.find()
+    Users.find({})
       .then((users) => {
-        res.status(201).json(users);
+        res.status(201).json(users.Username);
       })
       .catch((err) => {
         console.error(err);
@@ -250,7 +250,7 @@ app.delete(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Users.findOneAndRemove({ "Users.Username": req.params.Username })
+    Users.findOneAndRemove({ Username: req.params.Username })
       .then((user) => {
         if (!user) {
           res.status(400).send(`${req.params.Username} was not found.`);

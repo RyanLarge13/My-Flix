@@ -196,7 +196,7 @@ app.post(
 );
 
 app.post(
-  "/:users/:Username/movies/:MovieID",
+  "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOneAndUpdate(

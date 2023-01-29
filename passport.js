@@ -10,7 +10,6 @@ const ExtractJwt = passportJwt.ExtractJwt;
 passport.use(
   new localStrategy((username, password, callback) => {
     Users.findOne({ Username: username }, (err, user) => {
-      console.log(user);
       if (err) {
         console.log(err);
         return callback(err);
@@ -36,7 +35,7 @@ passport.use(
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: "your_jwt_secret",
     },
-    (jwtPayload, callback) => {
+    async (jwtPayload, callback) => {
       return Users.findById(jwtPayload._id)
         .then((user) => callback(null, user))
         .catch((err) => callback(err));

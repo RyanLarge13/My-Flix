@@ -208,7 +208,7 @@ app.post(
       (err, updateUser) => {
         if (err) {
           console.error(err);
-          res.status(500).send(`Error ${err}`);
+          return res.status(500).send(`Error ${err}`);
         } else {
           res.json(updateUser);
         }

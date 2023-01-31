@@ -226,7 +226,7 @@ app.put(
       { Username: req.body.Username },
       {
         $set: {
-          Username: req.body.Username,
+          Username: req.body.newUsername,
         },
       },
       { new: true },

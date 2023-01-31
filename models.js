@@ -26,7 +26,7 @@ const userSchema = mongoose.Schema({
   Password: { type: String, required: true },
   Email: { type: String, required: true },
   Birthday: Date,
-  FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Movie" }],
+  FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: "movies" }],
 });
 
 //The two methods below create a hashed password in the database to store as a user's password.

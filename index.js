@@ -61,7 +61,7 @@ app.get("/", (req, res) => {
   res.status(201).sendFile(__dirname + "/public/documentation.html");
 });
 
-app.get("/movie", (res, res) => {
+app.get("/movie", (req, res) => {
   Movies.findOne({ _id: req.body.id })
     .then((movie) => {
       return res.status(200).json(movie);

@@ -273,19 +273,15 @@ app.delete(
 );
 
 app.delete(
-  "/:users/:Username/movies/:MovieID",
+  "/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Users.findOne({ Username: req.params.Username })
-      .then((user) => {
-        if (!user) res.status(500).send(`${req.params.Username} was not found`);
-        else {
-          user
-            .findOneAndRemove({ "Users.FavoriteMovies": req.params.MovieID })
-            .then((movie) => {
-              movie.delete();
-            });
-        }
+    Users.findOneAndRemove(
+      { Username: req.params.Username },
+      { $pull: { FavoriteMovies: [req.params.id] } }
+    )
+      .then((doc) => {
+        console.log(doc);
       })
       .catch((err) => {
         console.log(err);

@@ -276,17 +276,16 @@ app.delete(
   "/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Users.findOneAndRemove(
+    Users.findOneAndUpdate(
       { Username: req.params.Username },
-      { $pull: { FavoriteMovies: [req.params.id] } }
-    )
-      .then((doc) => {
-        console.log(doc);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).send(`Error: ${err}`);
-      });
+      { $pull: { FavoriteMovies: req.params.MovieID } },
+      (err, data) => {
+        if (err) {
+          res.status(400).json({message: err})
+        }
+        else return res.status(200).json({message: data});
+      }
+    );
   }
 );
 

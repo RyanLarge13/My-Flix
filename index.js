@@ -9,7 +9,7 @@ const dotenv = require("dotenv").config();
 const allowedOrigins = [
   "http://localhost:8080",
   "http://localhost:1234",
-  "https://ryans-flix.netlify.app/",
+  "https://ryans-flix.netlify.app",
 ];
 const port = process.env.PORT || 8080;
 const { check, validationResult } = require("express-validator");

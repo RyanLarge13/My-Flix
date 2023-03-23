@@ -9,7 +9,7 @@ const dotenv = require("dotenv").config();
 const allowedOrigins = [
   "http://localhost:8080",
   "http://localhost:1234",
-  "https://my-flix-production.up.railway.app/",
+  "https://ryans-flix.netlify.app/",
 ];
 const port = process.env.PORT || 8080;
 const { check, validationResult } = require("express-validator");
@@ -281,9 +281,8 @@ app.delete(
       { $pull: { FavoriteMovies: req.params.MovieID } },
       (err, data) => {
         if (err) {
-          res.status(400).json({message: err})
-        }
-        else return res.status(200).json({message: data});
+          res.status(400).json({ message: err });
+        } else return res.status(200).json({ message: data });
       }
     );
   }
